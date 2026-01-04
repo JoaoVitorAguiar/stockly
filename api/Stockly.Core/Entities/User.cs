@@ -2,7 +2,7 @@ using Stockly.Core.Enums;
 
 namespace Stockly.Core.Entities;
 
-public class User: BaseEntity
+public class User : BaseEntity
 {
     public User(string name, string email, string passwordHash)
     {
@@ -22,7 +22,7 @@ public class User: BaseEntity
     }
 
     public string Name { get; set; }
-    public string Email { get; private set; } 
-    public Role Role { get; private set; } 
-    public string PasswordHash { get; private set; } 
+    public string Email { get; private set; }
+    public Role Role { get; private set; }
+    public string PasswordHash { get; private set; }
 }
