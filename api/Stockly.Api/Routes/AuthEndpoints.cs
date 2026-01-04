@@ -1,5 +1,5 @@
-using Stockly.Application.Dtos;
-using Stockly.Application.UseCases.Users;
+using Stockly.Application.UseCases.Auth.RegisterUserUseCase;
+using Wolverine;
 
 namespace Stockly.Api.Routes;
 
@@ -10,13 +10,12 @@ public static class AuthEndpoints
         var group = app.MapGroup("/auth")
             .WithTags("Authentication");
 
-        group.MapPost("/sign-up", async (RegisterUserDto dto, RegisterUserUseCase useCase) =>
+        group.MapPost("/sign-up", async (RegisterUserCommand command, IMessageBus bus) =>
         {
-            await useCase.ExecuteAsync(dto);
-
+            await bus.InvokeAsync(command);
             return Results.Created("/auth/sign-up", new
             {
-                message = "User created successfully"
+                message = "User registered successfully"
             });
         });
     }

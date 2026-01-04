@@ -1,12 +1,26 @@
+using Stockly.Api.Middlewares;
 using Stockly.Api.Routes;
 using Stockly.Application.DependencyInjection;
 using Stockly.Infra.DependencyInjection;
+using Wolverine;
+using Wolverine.FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+builder.Services.AddExceptionHandler<ExceptionHandlingMiddleware>();
+builder.Services.AddProblemDetails();
+
+builder.Host.UseWolverine(opts =>
+{
+    opts.Discovery.IncludeAssembly(
+        typeof(ApplicationModule).Assembly
+    );
+    opts.UseFluentValidation();
+});
 
 // Add modules
 builder.Services
@@ -23,7 +37,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseExceptionHandler();
+
 app.MapAuthEndpoints();
+
 
 
 app.Run();
