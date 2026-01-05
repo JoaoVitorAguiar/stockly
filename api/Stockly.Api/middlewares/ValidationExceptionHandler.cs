@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Stockly.Api.Middlewares;
 
-public class ExceptionHandlingMiddleware : IExceptionHandler
+public class ValidationExceptionHandler : IExceptionHandler
 {
     public async ValueTask<bool> TryHandleAsync(
         HttpContext httpContext,

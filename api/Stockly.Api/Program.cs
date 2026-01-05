@@ -11,7 +11,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
-builder.Services.AddExceptionHandler<ExceptionHandlingMiddleware>();
+builder.Services
+    .AddExceptionHandler<ValidationExceptionHandler>()
+    .AddExceptionHandler<CommonExceptionHandler>();
+
 builder.Services.AddProblemDetails();
 
 builder.Host.UseWolverine(opts =>
