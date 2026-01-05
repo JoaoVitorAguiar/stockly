@@ -8,7 +8,14 @@ public sealed class RegisterUserCommandValidator
     public RegisterUserCommandValidator()
     {
         RuleFor(x => x.Name).NotEmpty();
-        RuleFor(x => x.Email).EmailAddress();
-        RuleFor(x => x.PasswordHash).MinimumLength(6);
+
+        RuleFor(x => x.Email)
+            .NotEmpty().WithMessage("Email is required")
+            .EmailAddress().WithMessage("Email is invalid");
+
+        RuleFor(x => x.Password)
+            .NotEmpty().WithMessage("Password is required")
+            .MinimumLength(6).WithMessage("Password must be at least 6 characters long");
+
     }
 }
