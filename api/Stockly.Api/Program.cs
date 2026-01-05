@@ -1,3 +1,4 @@
+using Scalar.AspNetCore;
 using Stockly.Api.Middlewares;
 using Stockly.Api.Routes;
 using Stockly.Application.DependencyInjection;
@@ -37,6 +38,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.MapScalarApiReference("/api-docs");
 }
 
 app.UseHttpsRedirection();
