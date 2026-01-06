@@ -21,9 +21,10 @@ public static class InfraModule
                 configuration.GetConnectionString("DefaultConnection"),
                 o => o.MapEnum<Role>("role")
             ));
-
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IHashService, BCryptHashService>();
+
+        services.AddAuthenticationModule(configuration);
 
         return services;
     }
