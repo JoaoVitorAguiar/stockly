@@ -31,6 +31,15 @@ public class CommonExceptionHandler(ILogger<CommonExceptionHandler> logger) : IE
                 cancellationToken);
         }
 
+        if (exception is InvalidCredentialsException)
+        {
+            return await WriteProblem(
+                httpContext,
+                StatusCodes.Status401Unauthorized,
+                exception.Message,
+                cancellationToken);
+        }
+
         return false;
     }
 

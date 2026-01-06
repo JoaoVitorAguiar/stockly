@@ -1,3 +1,4 @@
+using Stockly.Application.UseCases.Auth.AuthenticateUserUseCase;
 using Stockly.Application.UseCases.Auth.RegisterUserUseCase;
 using Wolverine;
 
@@ -18,5 +19,15 @@ public static class AuthEndpoints
                 message = "User registered successfully"
             });
         });
+
+        group.MapPost("/sign-in", async (AuthenticateUserCommand command, IMessageBus bus) =>
+        {
+            var token = await bus.InvokeAsync<string>(command);
+            return Results.Ok(new
+            {
+                token
+            });
+        });
+
     }
 }
