@@ -13,7 +13,7 @@ using Stockly.Infra.Context;
 namespace Stockly.Infra.Migrations
 {
     [DbContext(typeof(StocklyDbContext))]
-    [Migration("20260103224501_CreateUsersTable")]
+    [Migration("20260106130217_CreateUsersTable")]
     partial class CreateUsersTable
     {
         /// <inheritdoc />
@@ -64,7 +64,8 @@ namespace Stockly.Infra.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("updated_at");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_users");
 
                     b.HasIndex("Email")
                         .IsUnique()
