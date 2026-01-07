@@ -22,6 +22,7 @@ public static class InfraModule
                 o => o.MapEnum<Role>("role")
             ));
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<ICategoryRepository, CategoryRepository>();
         services.AddScoped<IHashService, BCryptHashService>();
 
         services.AddAuthenticationModule(configuration);
