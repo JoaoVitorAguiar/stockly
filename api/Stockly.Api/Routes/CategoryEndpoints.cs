@@ -1,8 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
-using Stockly.Application.UseCases.Auth.AuthenticateUserUseCase;
-using Stockly.Application.UseCases.Auth.RegisterUserUseCase;
+using Stockly.Api.Dtos;
 using Stockly.Application.UseCases.Categories.CreateCategoryUseCase;
 using Stockly.Application.UseCases.Categories.GetCategoriesUseCase;
+using Stockly.Application.UseCases.Categories.UpdateCategoryUseCase;
 using Wolverine;
 
 namespace Stockly.Api.Routes;
@@ -27,5 +26,16 @@ public static class CategoryEndpoints
             return Results.Ok(categories);
         });
 
+        group.MapPut("/{id:guid}", async (Guid id, UpdateCategoryDto body, IMessageBus bus) =>
+        {
+            var command = new UpdateCategoryCommand(
+                    id,
+                    body.Name,
+                    body.Description
+                );
+
+            await bus.InvokeAsync(command);
+            return Results.NoContent();
+        });
     }
 }

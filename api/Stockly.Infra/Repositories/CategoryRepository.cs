@@ -22,4 +22,15 @@ public class CategoryRepository(StocklyDbContext dbContext) : ICategoryRepositor
     {
         return await dbContext.Categories.AsNoTracking().ToListAsync();
     }
+
+    public async Task UpdateCategoryAsync(Category category)
+    {
+        dbContext.Categories.Update(category);
+        await dbContext.SaveChangesAsync();
+    }
+
+    public Task<Category?> GetCategoryByIdAsync(Guid id)
+    {
+        return dbContext.Categories.SingleOrDefaultAsync(c => c.Id == id);
+    }
 }
