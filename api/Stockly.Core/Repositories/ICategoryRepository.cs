@@ -6,4 +6,5 @@ public interface ICategoryRepository
 {
     Task CreateCategoryAsync(Category category);
     Task<Category?> GetCategoryByNameAsync(string name);
+    Task<IList<Category>> GetCategoriesAsync();
 }

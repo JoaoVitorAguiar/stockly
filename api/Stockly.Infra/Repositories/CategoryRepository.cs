@@ -17,4 +17,9 @@ public class CategoryRepository(StocklyDbContext dbContext) : ICategoryRepositor
     {
         return dbContext.Categories.SingleOrDefaultAsync(c => c.Name == name);
     }
+
+    public async Task<IList<Category>> GetCategoriesAsync()
+    {
+        return await dbContext.Categories.AsNoTracking().ToListAsync();
+    }
 }
