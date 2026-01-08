@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Stockly.Core.Enums;
@@ -12,9 +13,11 @@ using Stockly.Infra.Context;
 namespace Stockly.Infra.Migrations
 {
     [DbContext(typeof(StocklyDbContext))]
-    partial class StocklyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260106131744_CreateCategoriesTable")]
+    partial class CreateCategoriesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

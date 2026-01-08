@@ -1,41 +1,35 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Stockly.Core.Enums;
 
 #nullable disable
 
 namespace Stockly.Infra.Migrations
 {
     /// <inheritdoc />
-    public partial class CreateUsersTable : Migration
+    public partial class CreateCategoriesTable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterDatabase()
-                .Annotation("Npgsql:Enum:role", "customer,admin");
-
             migrationBuilder.CreateTable(
-                name: "users",
+                name: "categories",
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
-                    name = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
-                    email = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
-                    role = table.Column<Role>(type: "role", nullable: false),
-                    password_hash = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    name = table.Column<string>(type: "character varying(120)", maxLength: 120, nullable: false),
+                    description = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
                     created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     updated_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_users", x => x.id);
+                    table.PrimaryKey("pk_categories", x => x.id);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "ix_users_email",
-                table: "users",
-                column: "email",
+                name: "ix_categories_name",
+                table: "categories",
+                column: "name",
                 unique: true);
         }
 
@@ -43,7 +37,7 @@ namespace Stockly.Infra.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "users");
+                name: "categories");
         }
     }
 }
